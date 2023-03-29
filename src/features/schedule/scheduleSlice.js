@@ -11,7 +11,7 @@ const initialState = scheduleAdapter.getInitialState();
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSchedule: builder.query({
-      query: () => '/api/schedule',
+      query: () => '/schedule',
       // transform the dates on this
       transformResponse: (responseData) => {
         const loadedData = responseData.map((rd) => ({
@@ -26,7 +26,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     addSchedule: builder.mutation({
       query: (schedule) => ({
-        url: '/api/schedule',
+        url: '/schedule',
         method: 'POST',
         body: schedule,
       }),
@@ -39,7 +39,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     // send updated slot to user
     updateSchedule: builder.mutation({
       query: (schedule) => ({
-        url: `/api/schedule/${schedule.id}`,
+        url: `/schedule/${schedule.id}`,
         method: 'PUT',
         body: {
           appointment,
