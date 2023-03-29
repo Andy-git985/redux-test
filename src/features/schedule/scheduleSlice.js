@@ -1,5 +1,5 @@
 import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from '../../app/api/apiSlice';
 import date from '../date/date';
 
 const scheduleAdapter = createEntityAdapter({
