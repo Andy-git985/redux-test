@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { selectEmployees } from './userSlice';
-import { useGetEmployeesQuery } from './userSlice';
+import { selectEmployees } from './employeeSlice';
+import { useGetEmployeesQuery } from './employeeSlice';
 
 function Employee() {
   const { isLoading, isSuccess, isError, error } = useGetEmployeesQuery();

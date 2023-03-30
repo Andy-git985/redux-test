@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
 import { selectCurrentUser, selectCurrentToken } from './authSlice';
 import { Link } from 'react-router-dom';
+import Appointment from '../appointment/Appointment';
 
 const Welcome = () => {
   const user = useSelector(selectCurrentUser);
   const token = useSelector(selectCurrentToken);
 
-  const welcome = user ? `Welcome ${user}!` : 'Welcome!';
+  const welcome = user ? `Welcome ${user.email}!` : 'Welcome!';
   const tokenAbbr = `${token.slice(0, 9)}...`;
 
   const content = (
@@ -17,6 +18,7 @@ const Welcome = () => {
         {/* <Link to="/userslist">Go to the Users List</Link> */}
         Link here:
       </p>
+      <Appointment />
     </section>
   );
 
