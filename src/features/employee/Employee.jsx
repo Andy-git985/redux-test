@@ -1,6 +1,22 @@
 import { useSelector } from 'react-redux';
 import { selectEmployees, selectEmployeeById } from './employeeSlice';
 import { useGetEmployeesQuery } from './employeeSlice';
+import Avatar from '@mui/material/Avatar';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  display: 'flex',
+  gap: '2rem',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
 
 const Employee = ({ employeeId }) => {
   const { isLoading, isSuccess, isError, error } = useGetEmployeesQuery();
@@ -15,21 +31,20 @@ const Employee = ({ employeeId }) => {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
     content = (
-      <div>
-        <div>{employee.firstName}</div>
-        <img src={employee.image} style={{ width: 100, height: 100 }}></img>
-      </div>
+      <Item>
+        <Avatar
+          alt={`${employee.firstName} avatar`}
+          src={employee.image}
+          sx={{ width: 56, height: 56 }}
+        />
+        <Typography variant="body1">{employee.firstName}</Typography>
+      </Item>
     );
   } else if (isError) {
     content = <p>{error}</p>;
   }
 
-  return (
-    <main>
-      <h1>Employee</h1>
-      {content}
-    </main>
-  );
+  return <>{content}</>;
 };
 
 export default Employee;

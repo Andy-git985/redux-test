@@ -16,7 +16,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       transformResponse: (responseData) => {
         const loadedData = responseData.map((rd) => ({
           ...rd,
-          date: date.dateHyphen(rd.date),
+          date: date.dateDash(rd.date),
           time: date.time(rd.time),
         }));
         return scheduleAdapter.setAll(initialState, loadedData);

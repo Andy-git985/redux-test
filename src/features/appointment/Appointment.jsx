@@ -17,7 +17,14 @@ const Appointment = () => {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
     content = appointments.map((appt) => (
-      <div key={appt.id} style={{ display: 'flex' }}>
+      <div
+        key={appt.id}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          outline: 'solid blue',
+        }}
+      >
         <div>{appt.date}</div>
         <div>{appt.time}</div>
         {role === 'client' ? (
@@ -33,7 +40,7 @@ const Appointment = () => {
 
   return (
     <main>
-      <h1>Appointments</h1>
+      <h3>Appointments</h3>
       {content}
     </main>
   );

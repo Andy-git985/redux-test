@@ -11,7 +11,6 @@ export const apptApiSlice = apiSlice.injectEndpoints({
     getAppointments: builder.query({
       query: () => '/appointment',
       transformResponse: (responseData) => {
-        console.log(responseData);
         const loadedAppts = responseData.map((appt) => ({
           ...appt,
           date: date.dateHyphen(appt.date),
@@ -19,12 +18,24 @@ export const apptApiSlice = apiSlice.injectEndpoints({
         }));
         return apptAdapter.setAll(initialState, loadedAppts);
       },
-      providesTags: ['Appointment'],
+      providesTags: (result, error, arg) => [
+        { type: 'Appointment', id: 'LIST' },
+        ...result.ids.map((id) => ({ type: 'Appointment', id })),
+      ],
+    }),
+    addAppointment: builder.mutation({
+      query: (appointment) => ({
+        url: '/appointment',
+        method: 'POST',
+        body: appointment,
+      }),
+      invalidatesTags: [{ type: 'Schedule', id: 'LIST' }],
     }),
   }),
 });
 
-export const { useGetAppointmentsQuery } = apptApiSlice;
+export const { useGetAppointmentsQuery, useAddAppointmentMutation } =
+  apptApiSlice;
 
 // returns query result object
 export const selectApptResult = apptApiSlice.endpoints.getAppointments.select();
