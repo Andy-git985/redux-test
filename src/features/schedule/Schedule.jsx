@@ -11,7 +11,12 @@ function Schedule() {
   if (isLoading) {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
-    content = JSON.stringify(schedule);
+    content = schedule.map((sc) => (
+      <div style={{ display: 'flex', outline: 'solid red' }}>
+        <div>{sc.date}</div>
+        <div>{sc.time}</div>
+      </div>
+    ));
   } else if (isError) {
     content = <p>{error}</p>;
   }

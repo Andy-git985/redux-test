@@ -22,7 +22,10 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         return scheduleAdapter.setAll(initialState, loadedData);
       },
       // Check on this
-      providesTags: ['Schedule'],
+      providesTags: (result, error, arg) => [
+        { type: 'Schedule', id: 'LIST' },
+        ...result.ids.map((id) => ({ type: 'Schedule', id })),
+      ],
     }),
     addSchedule: builder.mutation({
       query: (schedule) => ({
@@ -31,7 +34,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         body: schedule,
       }),
       // Check on this
-      invalidatesTags: ['Schedule'],
+      invalidatesTags: [{ type: 'Schedule', id: 'LIST' }],
     }),
     // TODO: PUT
     // add appointment id to appt array

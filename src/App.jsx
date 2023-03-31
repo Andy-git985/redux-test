@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './features/auth/Login';
 import Schedule from './features/schedule/Schedule';
+import AddScheduleForm from './features/schedule/AddScheduleForm';
 import Employee from './features/employee/Employee';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
@@ -17,6 +18,7 @@ function App() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/login" element={<Login />} />
           <Route path="/employee" element={<Employee />} />
+          <Route path="/add" element={<AddScheduleForm />} />
           <Route element={<RequireAuth />}>
             <Route path="/welcome" element={<Welcome />} />
           </Route>
