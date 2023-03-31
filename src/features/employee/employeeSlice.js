@@ -14,10 +14,6 @@ export const employeeApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ['Employee'],
     }),
-    getEmployeeById: builder.query({
-      query: (id) => `/user/${id}`,
-      providesTags: ['Employee'],
-    }),
   }),
 });
 

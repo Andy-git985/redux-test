@@ -1,5 +1,6 @@
 import { createSelector, createEntityAdapter } from '@reduxjs/toolkit';
 import { apiSlice } from '../../app/api/apiSlice';
+import date from '../date/date';
 
 const apptAdapter = createEntityAdapter();
 
@@ -10,7 +11,13 @@ export const apptApiSlice = apiSlice.injectEndpoints({
     getAppointments: builder.query({
       query: () => '/appointment',
       transformResponse: (responseData) => {
-        return apptAdapter.setAll(initialState, responseData);
+        console.log(responseData);
+        const loadedAppts = responseData.map((appt) => ({
+          ...appt,
+          date: date.dateHyphen(appt.date),
+          time: date.time(appt.time),
+        }));
+        return apptAdapter.setAll(initialState, loadedAppts);
       },
       providesTags: ['Appointment'],
     }),

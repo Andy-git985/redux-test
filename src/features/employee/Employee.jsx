@@ -1,17 +1,25 @@
 import { useSelector } from 'react-redux';
-import { selectEmployees } from './employeeSlice';
+import { selectEmployees, selectEmployeeById } from './employeeSlice';
 import { useGetEmployeesQuery } from './employeeSlice';
 
-function Employee() {
+const Employee = ({ employeeId }) => {
   const { isLoading, isSuccess, isError, error } = useGetEmployeesQuery();
-
   const employees = useSelector(selectEmployees);
+  const employee = useSelector((state) =>
+    selectEmployeeById(state, employeeId)
+  );
+  console.log('employee', employee);
 
   let content;
   if (isLoading) {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
-    content = JSON.stringify(employees);
+    content = (
+      <div>
+        <div>{employee.firstName}</div>
+        <img src={employee.image} style={{ width: 100, height: 100 }}></img>
+      </div>
+    );
   } else if (isError) {
     content = <p>{error}</p>;
   }
@@ -22,6 +30,6 @@ function Employee() {
       {content}
     </main>
   );
-}
+};
 
 export default Employee;
